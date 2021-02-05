@@ -1,0 +1,13 @@
+<div id="NM_NEWSSTAND_HEADER" class="group_issue" data-clk-prefix="ncy"> <div class="issue_area"> <a href="http://news.naver.com/main/list.nhn?mode=LPOD&amp;mid=sec&amp;sid1=001&amp;sid2=140&amp;oid=001&amp;isYeonhapFlash=Y" class="link_media" data-clk="newsflash">연합뉴스</a> <div id="yna_rolling" class="list_issue" data-nm-ui="rolling"> 
+
+
+
+
+
+
+
+
+ <div class="eg-flick-viewport" style="position: relative; z-index: 0; overflow: hidden; min-width: 100%; height: 100%; touch-action: pan-x; user-select: none; -webkit-user-drag: none; width: 310px;"><div class="eg-flick-camera" style="width: 100%; height: 100%; will-change: transform; transform: translate3d(0px, 0px, 0px);"><div class="eg-flick-panel" style="position: absolute; top: 0px;"><a href="http://news.naver.com/main/list.nhn?mode=LPOD&amp;mid=sec&amp;sid1=001&amp;sid2=140&amp;oid=001&amp;isYeonhapFlash=Y&amp;aid=0012184758" class="issue" data-clk="quickarticle">전국 1만7천890명 대상 항체조사서 55명 양성…항체보유율 0.31%</a></div></div></div></div> </div> <div class="direct_area"> <a href="http://news.naver.com/" class="link_news" data-clk="newshome">네이버뉴스</a>
+<a href="http://entertain.naver.com/home" class="link_direct" data-clk="entertainment">연예</a>
+<a href="http://sports.news.naver.com/" class="link_direct" data-clk="sports">스포츠</a>
+<a href="http://news.naver.com/main/main.nhn?mode=LSD&amp;mid=shm&amp;sid1=101" class="link_direct" data-clk="economy">경제</a> </div> </div>
