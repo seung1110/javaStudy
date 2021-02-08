@@ -6,9 +6,9 @@ public class FileMission {
 
 	public static void main(String[] args) {
 		File f = new File("C:\\Users\\KOSTA\\Desktop\\new");
-		File des = new File("C:\\Users\\KOSTA\\Desktop\\copyNew");
+		File des = new File("D:\\copy");
 
-		CopyUtill.copyDir(f, des);
+		CopyUtill.copyDir2(f, des);
 //		show(f);
 		
 	}

@@ -1,27 +1,47 @@
 package my.test;
 
-public class Test_static {
-	public static void main(String[] args) {
-		Cat cat = new Cat();
-		Dug dug = new Dug();
-		Animal animals[] = { new Cat(), new Dug()};
-		Animal castingEx = new Animal();
-		Cat catnew = (Cat)castingEx;
-		catnew.printProperty();
-		Object ob[] = new Object[10];
+import javax.swing.JOptionPane;
 
-		cat.leg = 1;
-		cat.printLeg();
-		dug.printLeg();
+public class Test_static {
+	
+	public static void main(String args[]) {
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for(int i = 1; i < 10; i++) {
+					System.out.println(i);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}			
+			}
+		});
+		t.start();
+		String input = JOptionPane.showInputDialog("입력하세요");
+		System.out.println("입력하신 값 : " + input);
+
 		
-		cat.printProperty();
-		dug.printProperty();
-		
-		
-		animals[0].printLeg();
-		animals[1].printLeg();
-		animals[0].printProperty();
-		animals[1].printProperty();
 	}
 
+	
+
+
+	public static class Thread1 extends Thread{
+		public void run() {
+			for(int i = 0; i < 300; i++)
+				System.out.print("/");
+		}
+	}
+	
+	public static class Thread2 implements Runnable{
+		
+		@Override
+		public void run() {
+			for(int i = 0; i < 300; i++)
+				System.out.print("*");
+		}
+	}
 }

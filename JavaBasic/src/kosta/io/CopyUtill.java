@@ -46,35 +46,55 @@ public class CopyUtill {
 
 	}
 
-	public static void copyDir(File s , File des) {
-		if(s.isDirectory()) {
-			if(!des.exists()) {
+	public static void copyDir(File s, File des) {
+		if (s.isDirectory()) {
+			if (!des.exists()) {
 				des.mkdir();
 				System.out.println("처음 디렉토리 생성");
 			}
-			
+
 			File fs[] = s.listFiles();
-			
-			for(File i : fs) {
-				if(i.isDirectory()) {
-				File newDir = new File(des.getPath() + "\\" + i.getName());
-				newDir.mkdir();
-				copyDir(i,newDir);
-				}
-				else {
+
+			for (File i : fs) {
+				if (i.isDirectory()) {
+					File newDir = new File(des.getPath() + "\\" + i.getName());
+					newDir.mkdir();
+					copyDir(i, newDir);
+				} else {
 					File newFile = new File(des.getPath() + "\\" + i.getName());
 					try {
 						newFile.createNewFile();
 					} catch (IOException e) {
 						System.out.println("오류");
 					}
-					copyDir(i,newFile);
+					copyDir(i, newFile);
 				}
 			}
-		}
-		else {
+		} else {
 			copyFile(s, des);
 		}
+	}
+
+	public static void copyDir2(File s, File des) {
+		des.mkdir();
+		
+		File fs[] = s.listFiles();
+		for (File i : fs) {
+			if (i.isDirectory()) {
+				File newDir = new File(des,i.getName());
+				newDir.mkdir();
+				copyDir(i, newDir);
+			} else {
+				File newFile = new File(des,i.getName());
+				try {
+					newFile.createNewFile();
+				} catch (IOException e) {
+					System.out.println("오류");
+				}
+				copyFile(i, newFile);
+			}
+		}
+
 	}
 
 }
