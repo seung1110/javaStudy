@@ -5,7 +5,8 @@ public class PhoneMain {
 	public static void main(String[] args) {
 		Manager m = new Manager();
 		while (true) {
-			System.out.println("1. 추가 2. 출력 3. 검색 4. 수정 5. 삭제 6. 정렬  7. 저장  8. 가져오기 9. 종료");
+			System.out.println("1. 추가 2. 출력 3. 검색 4. 수정 5. 삭제 6. 정렬  7. 저장  8. 가져오기 9. 서버에 저장"
+					+ "10. 서버에서 불러오기 11. 종료");
 			String temp = DataInput.sc.nextLine();
 			switch (temp) {
 			case "1": {
@@ -89,7 +90,21 @@ public class PhoneMain {
 					System.out.println("불러오기에 실패하였습니다.");
 				}
 				break;
-			case "9":
+			case "9": // 서버에 phoneInfo 저장
+				try {
+				m.uploadServer();
+				}catch(Exception e){
+					System.out.println("저장에 실패하였습니다.");
+				}
+				break;
+			case "10": // 서버에 저장된 데이터 콜
+				try {
+				m.getJson();
+				}catch(Exception e){
+					System.out.println("읽어오기에 실패하였습니다.");
+				}
+				break;
+			case "11":
 				System.out.println("종료합니다.");
 				return;
 			default:

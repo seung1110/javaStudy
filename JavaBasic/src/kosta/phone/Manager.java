@@ -1,16 +1,42 @@
 package kosta.phone;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class Manager {
 
 	ArrayList<PhoneInfo> infos = new ArrayList<PhoneInfo>();
+
+	private Socket socket = new Socket();
+	public Manager() {
+		try {
+			socket = new Socket("127.0.0.1",9000);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void addPhoneInfo() throws Exception {
 
@@ -181,16 +207,18 @@ public class Manager {
 			}
 		});
 	}
+
 	public void sortDName() {
 		infos.sort(new Comparator<PhoneInfo>() {
-			
+
 			@Override
 			public int compare(PhoneInfo o1, PhoneInfo o2) {
 				return -(o1.getName().compareTo(o2.getName()));
 			}
 		});
 	}
-	public void sortNumber() {		
+
+	public void sortNumber() {
 		infos.sort(new Comparator<PhoneInfo>() {
 
 			@Override
@@ -199,19 +227,20 @@ public class Manager {
 			}
 		});
 	}
-	public void sortDNumber() {		
+
+	public void sortDNumber() {
 		infos.sort(new Comparator<PhoneInfo>() {
-			
+
 			@Override
 			public int compare(PhoneInfo o1, PhoneInfo o2) {
 				return -(o1.getPhoneNum().compareTo(o2.getPhoneNum()));
 			}
 		});
 	}
-	
+
 	public void save() {
 		ObjectOutputStream oos = null;
-		
+
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream("phoneInfo.ser"));
 			oos.writeObject(infos);
@@ -219,7 +248,7 @@ public class Manager {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				oos.close();
 			} catch (IOException e) {
@@ -227,11 +256,12 @@ public class Manager {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
+
 	public void load() {
 		ObjectInputStream ois = null;
-		
+
 		try {
 			ois = new ObjectInputStream(new FileInputStream("phoneInfo.ser"));
 			this.infos = (ArrayList<PhoneInfo>) ois.readObject();
@@ -242,7 +272,7 @@ public class Manager {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				ois.close();
 			} catch (IOException e) {
@@ -250,7 +280,85 @@ public class Manager {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
+	}
+
+	public String createJson() {
+		if (infos.size() == 0)
+			return null;
+		String str = net.sf.json.JSONArray.fromObject(infos).toString();
+		return str;
+	}
+
+	public void uploadServer() {
+		try {
+			OutputStream out = socket.getOutputStream();
+			String json = createJson();
+			if (json != null) {
+				out.write(json.getBytes());
+				out.flush();
+			}
+		} catch (UnknownHostException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void getJson() {
+		try {
+			if (socket == null)
+				System.out.println("저장된 데이터가 없습니다.");
+			else {
+				OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
+				out.write("get");
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				System.out.println(1);
+				String str, json = null;
+				while ((str = br.readLine()) != null) {
+					System.out.println(str);
+					json += str;
+				}
+				if (json != null) {
+					System.out.println(2);
+					JSONParser parser = new JSONParser();
+					Object obj = parser.parse(json);
+					if (obj instanceof JSONArray) {
+						JSONObject jobj;
+						Iterator iter = ((JSONArray) obj).iterator();
+
+						while (iter.hasNext()) {
+							jobj = (JSONObject) iter.next();
+							String name = (String) jobj.get("name");
+							String phoneNum = (String) jobj.get("phoneNum");
+							String birth = (String) jobj.get("birth");
+							if (jobj.get("dept") != null) {
+								String dept = (String) jobj.get("dept");
+								String position = (String) jobj.get("position");
+								infos.add(new Company(name, phoneNum, birth, dept, position));
+							} else if (jobj.get("major") != null) {
+								String major = (String) jobj.get("major");
+								String year = (String) jobj.get("year");
+								infos.add(new Universe(name, phoneNum, birth, major, year));
+							} else {
+								infos.add(new PhoneInfo(name, phoneNum, birth));
+							}
+
+						}
+					}
+
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }

@@ -2,5 +2,12 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/KOSTA/Downloads/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="C:/Users/KOSTA/Downloads/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/KOSTA/Downloads/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/KOSTA/Downloads/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/KOSTA/Downloads/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/KOSTA/Downloads/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/KOSTA/Downloads/json-lib-2.3-jdk13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

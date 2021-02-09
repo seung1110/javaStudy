@@ -24,6 +24,7 @@ public class Ex_13_6 {
 				}
 			}
 		});
+		
 		t1.setPriority(1);
 		t2.setPriority(10);
 		System.out.println("priority of t1  : " + t1.getPriority());
