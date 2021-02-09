@@ -292,10 +292,10 @@ public class Manager {
 
 	public void uploadServer() {
 		try {
-			OutputStream out = socket.getOutputStream();
+			OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
 			String json = createJson();
 			if (json != null) {
-				out.write(json.getBytes());
+				out.write(json);
 				out.flush();
 			}
 		} catch (UnknownHostException e) {
@@ -317,12 +317,12 @@ public class Manager {
 				out.write("get");
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				System.out.println(1);
 				String str, json = null;
+				
 				while ((str = br.readLine()) != null) {
-					System.out.println(str);
 					json += str;
 				}
+				
 				if (json != null) {
 					System.out.println(2);
 					JSONParser parser = new JSONParser();

@@ -29,10 +29,12 @@ public class PhoneInfoServer {
 				String data = t.getData();
 				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String str = br.readLine();
-				
+				while(true) {
 				if(str != null & str.equals("get")) {
 				OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
 				out.write(str);
+				break;
+				}
 				}
 				
 			}
