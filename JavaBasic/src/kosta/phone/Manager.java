@@ -292,11 +292,11 @@ public class Manager {
 
 	public void uploadServer() {
 		try {
-			OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
+			OutputStream out = socket.getOutputStream();
 			String json = createJson();
 			if (json != null) {
-				out.write(json);
 				out.flush();
+				out.write(json.getBytes());
 			}
 		} catch (UnknownHostException e) {
 
